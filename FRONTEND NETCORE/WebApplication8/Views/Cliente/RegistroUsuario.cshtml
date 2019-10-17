@@ -1,0 +1,62 @@
+﻿@using WebApplication8.ModelosVistas;
+@model VistaRegistroModelo;
+@{
+    ViewData["Title"] = "RegistroUsuario";
+}
+<div class="container hideYScroll containerForm">
+    <a id="backButton" href="##" onClick="history.go(-1); return false;"> Back</a>
+    <div id="hRegistro" class="row rowForm"><h2>INTRODUCE TUS DATOS</h2></div>
+    <div class="row rowForm">
+
+        <div class="col-md-6 formRegistroIzq">
+            <form asp-controller="Cliente" asp-action="RegistroUsuario" method="post" id="formRegistro">
+                <div class="form-group row">
+                    <label class="formField stdLabel">Nombre *</label>
+                    <input name="nombre" type="text" asp-for="nombre" class="stdInputForm" />
+                </div>
+                <div class="form-group row">
+                    <label class="formField stdLabel">Apellidos *</label>
+                    <input name="apellidos" type="text" asp-for="apellidos" class="stdInputForm" />
+                </div>
+                <div class="form-group row">
+                    <label class="formField stdLabel">Usuario *</label>
+                    <input name="usuario" type="text" asp-for="usuario" class="stdInputForm" />
+                </div>
+                <div class="form-group row">
+                    <label class="formField stdLabel">Email *</label>
+                    <input name="email" type="text" asp-for="email" class="stdInputForm" />
+                </div>
+                <div class="form-group row">
+                    <label class="formField stdLabel">Contraseña *</label>
+                    <input name="clave" type="password" asp-for="clave" class="stdInputForm" />
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6 formRegistroDer">
+            <p class="largeText">
+                Si creas una cuenta podrás comprar en <a asp-controller="Home" asp-action="Index">nuper-zapas</a>, obtener descuentos, acceder al historial de tus pedidos, recuperar pedidos
+                anteriores...
+
+                
+            </p>
+        </div>
+    </div>
+    <div class="row buttonRowForm">
+        <button type="submit" form="formRegistro" class="btn btn-primary btn-primary-form">
+            Registrar
+        </button>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(window).on('load', function () {
+            console.log("Entro");
+            $("body:has(div.hideYScroll)").css('overflow-y', 'hidden');
+            console.log("Salgo");
+        });
+
+
+    </script>
+    }

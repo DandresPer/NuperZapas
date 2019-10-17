@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 23-mar-2019 13:45:14 by Hibernate Tools 5.1.10.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="NuperBD" dynamic-insert="false" dynamic-update="false" mutable="true" name="generado2.Clientes" optimistic-lock="version" polymorphism="implicit" schema="dbo" select-before-update="false" table="Clientes">
+        <composite-id class="generado2.ClientesId" mapped="false" name="id" unsaved-value="undefined">
+            <key-property name="nombre" type="string">
+                <column length="20" name="nombre"/>
+            </key-property>
+            <key-property name="apellidos" type="string">
+                <column length="40" name="apellidos"/>
+            </key-property>
+            <key-property name="usuario" type="string">
+                <column length="20" name="usuario"/>
+            </key-property>
+            <key-property name="clave" type="string">
+                <column length="20" name="clave"/>
+            </key-property>
+            <key-property name="email" type="string">
+                <column length="40" name="email"/>
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

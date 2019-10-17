@@ -1,0 +1,93 @@
+﻿@using WebApplication8.ModelosVistas;
+@model VistaSegundoRegistroModelo;
+@{
+    ViewData["Title"] = "SegundoRegistroUsuario";
+}
+<div class="container hideYScroll containerForm">
+    <a id="backButton" href="##" onClick="history.go(-1); return false;"> Back</a>
+    <div id="hRegistro" class="row rowForm"><h2>YA CASI HEMOS TERMINADO...</h2></div>
+    <div class="row rowForm">
+        <div class="col-md-6 formRegistroIzq">
+
+            <form asp-controller="Cliente" asp-action="SegundoRegistroUsuario" method="post" id="formSegundoRegistro">
+                <div class="form-group row">
+                    <label class="formField stdLabel">Pais *</label>
+                    <input name="pais" type="text" asp-for="pais" class="stdInputForm" />
+                </div>
+                <div class="form-group row">
+                    <label class="formField stdLabel">cp *</label>
+                    <input name="cp" type="text" asp-for="cp" class="stdInputForm" />
+                </div>
+                <div class="form-group row">
+                    <label class="formField stdLabel">localidad *</label>
+                    <input name="localidad" type="text" asp-for="localidad" class="stdInputForm" />
+                </div>
+                <div class="form-group row">
+                    <label class="formField stdLabel">ciudad *</label>
+                    <input name="ciudad" type="text" asp-for="ciudad" class="stdInputForm" />
+                </div>
+                <div class="form-group row">
+                    <label class="formField stdLabel">calle *</label>
+                    <input name="calle" type="text" asp-for="calle" class="stdInputForm" />
+                </div>
+                <div class="form-group row">
+                    <label class="formField stdLabel">numero *</label>
+                    <input name="numero" type="text" asp-for="numero" class="stdInputForm" />
+                </div>
+                <div class="form-group row">
+                    <label class="formField stdLabel">bloque *</label>
+                    <input name="bloque" type="text" asp-for="bloque" class="stdInputForm" />
+                </div>
+                <div class="form-group row">
+                    <label class="formField stdLabel">piso *</label>
+                    <input name="piso" type="text" asp-for="piso" class="stdInputForm" />
+                </div>
+                <div class="form-group row">
+                    <label class="formField stdLabel">puerta *</label>
+                    <input name="puerta" type="text" asp-for="puerta" class="stdInputForm" />
+                </div>
+                <div class="form-group row">
+                    <label class="formField stdLabel">observaciones *</label>
+                    <input name="observaciones" type="text" asp-for="observaciones" class="stdInputForm" />
+                </div>
+
+            </form>
+        </div>
+        <div class="col-md-6 formRegistroDer">
+            <p class="largeText">
+                Es necesrio estar registrado y logueado para finalizar su compra. Puede <a asp-controller="Cliente" asp-action="RegistroUsuario">registrarse</a> ahora y terminar su pedido.
+                No perderá los datos de su compra.
+
+                Gracias por comprar en <a asp-controller="Home" asp-action="Index">nuper-zapas</a>!
+            </p>
+        </div>
+    </div>
+    <div class="row buttonRowForm">
+        <button type="submit" form="formSegundoRegistro" class="btn btn-primary btn-primary-form">
+            FINALIZAR COMPRA
+        </button>
+    </div>
+</div>
+
+    @*         public string token { get; set; }
+        public int cp { get; set; }
+        public string pais { get; set; }
+        public string localidad { get; set; }
+        public string ciudad { get; set; }
+        public string calle { get; set; }
+        public int numero { get; set; }
+        public string bloque { get; set; }
+        public string piso { get; set; }
+        public string puerta { get; set; }
+        public string observaciones { get; set; } *@
+    @section Scripts{
+        <script>
+            $(window).on('load', function () {
+                console.log("Entro");
+                $("body:has(div.hideYScroll)").css('overflow-y', 'hidden');
+                console.log("Salgo");
+            });
+
+
+        </script>
+    }

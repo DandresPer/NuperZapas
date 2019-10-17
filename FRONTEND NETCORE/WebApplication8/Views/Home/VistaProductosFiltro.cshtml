@@ -1,0 +1,96 @@
+﻿@model WebApplication8.ModelosVistas.navbarPartialModelCat
+@{
+    ViewData["Title"] = "VistaProductosFiltro";
+}
+
+
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+
+@await Html.PartialAsync("_navbarPartial")
+<div id="data_cat_wrapper" class="hideYScroll">
+
+    @foreach (var producto in ViewBag.ProductosCat)
+    {
+        <div id="data_cat" class="miniProducto">
+            @await Html.PartialAsync("_miniProducto", (Productos)producto)
+        </div>
+    }
+</div>
+@{
+
+    var filtro = ViewBag.Filtro;
+
+
+}
+@{
+
+
+    @Html.PagedListPager((IPagedList)ViewBag.ProductosCat, page => Url.Action("VistaProductosFiltro", new { filtro, page }),
+
+    new X.PagedList.Mvc.Common.PagedListRenderOptionsBase
+    {
+        DisplayLinkToFirstPage = X.PagedList.Mvc.Common.PagedListDisplayMode.Always,
+        DisplayLinkToLastPage = X.PagedList.Mvc.Common.PagedListDisplayMode.Always,
+        DisplayLinkToPreviousPage = X.PagedList.Mvc.Common.PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = X.PagedList.Mvc.Common.PagedListDisplayMode.Always,
+        DisplayEllipsesWhenNotShowingAllPageNumbers = true,
+        EllipsesFormat = "&#8230",
+        LinkToFirstPageFormat = "<<",
+        LinkToLastPageFormat = ">>",
+        LinkToPreviousPageFormat = "<",
+        LinkToNextPageFormat = ">",
+        MaximumPageNumbersToDisplay = 6,
+    }
+
+    );
+
+}
+
+@section Scripts{
+    <script>
+        $(window).on('load', function () {
+            console.log("Entro");
+            $("body:has(div.hideYScroll)").css('overflow-y', 'hidden');
+            console.log("Salgo");
+        });
+
+
+    </script>
+    <script>
+
+        $("#myLink").click(function (e) {
+            console.log("entro");
+            e.preventDefault();
+            $.ajax({
+
+                url: $(this).attr("href"), // comma here instead of semicolon
+
+                success: function () {
+                    location.reload();
+                }
+
+            });
+
+        });
+
+    </script>
+    <script>
+
+        $("#myLinkDos").click(function (e) {
+            console.log("entro");
+            e.preventDefault();
+            $.ajax({
+
+                url: $(this).attr("href"), // comma here instead of semicolon
+
+                success: function () {
+                    location.reload();
+                }
+
+            });
+
+        });
+
+    </script>
+}

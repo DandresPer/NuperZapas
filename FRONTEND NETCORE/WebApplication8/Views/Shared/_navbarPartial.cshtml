@@ -1,0 +1,277 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@model Productos
+
+
+
+@{
+    var token = Context.Session.GetString("token");
+}
+<nav class="navbar" id="navbar">
+
+    <div id="navbarContainerTop" class="container">
+        <!--MI CUENTA TOKEN FALSE-->
+        <ul class="navbar-nav">
+            @* HOME *@
+            <li class="nav-item dropdown">
+                <a asp-controller="Home" asp-action="Index" id="navbarDropdown" class="home_b nav-item nav-link dropdown-toggle cuenta"><strong>HOME</strong></a>
+            </li>
+            @* LOGIN *@
+            <li id="liMiCuenta" class="nav-item dropdown">
+                <a class="nav-item nav-link dropdown-toggle cuenta" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    @if (token == null)
+                    {
+                        <strong> LOGIN </strong>
+                    }
+                    else
+                    {<strong>MI CUENTA</strong>}
+
+                </a>
+                <div class="dropdown-menu jio" id="jio">
+                    @if (token == null)
+                    {
+
+                        @await Html.PartialAsync("_miniLogin")
+
+
+                        <div class="dropdown-divider"></div>
+                        <a asp-controller="Cliente" asp-action="RegistroUsuario" class="dropdown-item">New around here? Sign up</a>
+                        <a class="dropdown-item" href="#">Forgot password?</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Cliente" asp-action="Logout" class="dropdown-item">Logout</a>
+
+                    }
+                </div>
+            </li>
+            @* CATEGORIAS *@
+            <li id="liCategoriasTop" class="nav-item dropdown floatLeft">
+                <a class="nav-item nav-link dropdown-toggle cuenta" href="#" id="navbarDropdownTop" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <strong> CATEGORIAS</strong>
+                </a>
+                <div class="dropdown-menu jio jio2 dropdown" id="jio">
+
+                    @foreach (var categoria in ViewBag.Categorias)
+                    {
+                        @await Html.PartialAsync("_miniCategoria", (Categorias)categoria)
+                    }
+
+                </div>
+            </li>
+            @* CARRITO *@
+            <li id="carritoTop" class="nav-item dropdown floatLeft">
+                <a class="nav-item nav-link dropdown-toggle cuenta" href="#" id="navbarDropdownTop" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <strong> CARRITO</strong>
+                </a>
+                <div class="dropdown-menu jio dropdown carritoContainer" id="jio3">
+                    @{
+                        //   Context.Session.GetString("carrito");
+
+                        @if (Context.Session.GetString("carrito") != null)
+                        {
+                            double totalPedidos = 0;
+                            Carros carro = JsonConvert.DeserializeObject<Carros>(Context.Session.GetString("carrito"));
+
+                    <div id="carritoItem" class="row" height="40px" margin="0 auto" padding="0">
+                        <div id="carritoItemNombre" class="carritoItemComp col-md-6">Producto</div>
+
+                        <div id="carritoItemPrecio" class="carritoItemComp col-md-2">Precio</div>
+
+                        <div id="carritoCompUnidades" class="carritoItemComp col-md-1"> Uds</div>
+
+                        <div id="carritoItemPrecioTotal" class="carritoItemComp col-md-2"> Total </div>
+
+                    </div>
+                                @foreach (var pedido in carro.Pedidos)
+                                {
+                                    var ped = (Pedidos)pedido;
+                                    totalPedidos += pedido.PrecioTotal;
+
+                                    <div id="carritoItem" class="row" height="40px" margin="0 auto" padding="0">
+                                        <div id="carritoItemNombre" class="carritoItemComp col-md-4">@ped.ProductoPOJO.nombre</div>
+                                        <div id="carritoItemImagen" class="carritoItemComp col-md-2">
+                                            <img src="~/images/productos/@ped.ProductoPOJO.imgSmall" height="auto" width="30px" alt="PRODUCTO">
+                                        </div>
+                                        <div id="carritoItemPrecio" class="carritoItemComp col-md-2">@ped.ProductoPOJO.precio</div>
+
+                                        <div id="carritoCompUnidades" class="carritoItemComp col-md-1"> @ped.Unidades</div>
+
+                                        <div id="carritoItemPrecioTotal" class="carritoItemComp col-md-2"> @ped.PrecioTotal</div>
+                                        @Html.ActionLink("X", "RemoveProducto", "Pedido", new { sku = ped.ProductoPOJO.sku }, new { id = "myLinkDos" });
+                                    </div>
+
+
+                                }
+                                <hr />
+
+                                <span id="spanTotal"> TOTAL: @totalPedidos </span>
+                                }
+
+                                }
+
+                                @if (Context.Session.GetString("carrito") != null)
+                                {
+                                    <span id="spanBotonComprar">
+                                        <input class="btn btn-primary btn-primary-form botonComprar" type="button" value="COMPRAR" onclick="location.href='@Url.Action("SegundoRegistroUsuario", "Cliente")'" />
+                                        @*<input type="button" value="COMPRAR" onclick="location.href='@Url.Action("ComprarCarro", "Pedido")'" />*@
+                                    </span>
+                                }
+                                else
+                                {
+                                    <p class="spanCarro">Aún no has añadido items a tu carro</p>
+                                    <p class="spanCarro"><strong> <i>EMPIEZA A COMPRAR!</i></strong></p>
+                                }
+
+                            </div>
+</li>
+        </ul>
+    </div>
+</nav>
+
+<nav id="navbarBottom">
+
+    <div id="navbarContainerBottom" class="container">
+
+        <ul class="navbar-nav">
+            @* HOME *@
+            <li id="navbarDropdownBottomD" class="nav-item dropdown">
+                <a asp-controller="Home" asp-action="Index" id="navbarDropdownTop" class="home_b nav-item nav-link dropdown-toggle cuenta"><strong>HOME</strong></a>
+            </li>
+
+            @* LOGIN *@
+            <li id="navbarDropdownBottom" class="nav-item dropdown floatLeft">
+                <a class="nav-item nav-link dropdown-toggle cuenta" href="#" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    @if (token == null)
+                    {
+                        <strong> LOGIN </strong>
+                    }
+                    else
+                    {<strong>MI CUENTA</strong>}
+                </a>
+                <div class="dropdown-menu jio dropdown" id="jio">
+                    @if (token == null)
+                    {
+
+                        @await Html.PartialAsync("_miniLogin")
+                        <div class="dropdown-divider"></div>
+                        <a asp-controller="Cliente" asp-action="RegistroUsuario" class="dropdown-item">New around here? Sign up</a>
+                        <a class="dropdown-item" href="#">Forgot password?</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Cliente" asp-action="Logout" class="dropdown-item">Logout</a>
+                    }
+                </div>
+            </li>
+
+            @* CATEGORIAS *@
+            <li id="navbarDropdownBottomB" class="nav-item dropdown floatLeft">
+                <a class="nav-item nav-link dropdown-toggle cuenta" href="#" id="navbarDropdownTop" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <strong> CATEGORIAS</strong>
+                </a>
+                <div class="dropdown-menu jio jio2 dropdown" id="jio">
+
+                    @foreach (var categoria in ViewBag.Categorias)
+                    {
+                        @await Html.PartialAsync("_miniCategoria", (Categorias)categoria)
+                    }
+
+                </div>
+            </li>
+            @* CARRITO *@
+            <li id="navbarDropdownBottomC" class="nav-item dropdown floatLeft">
+                <a class="nav-item nav-link dropdown-toggle cuenta" href="#" id="navbarDropdownTop" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <strong> CARRITO</strong>
+                </a>
+                <div class="dropdown-menu jio dropdown carritoContainer" id="jio3">
+                    @{
+                        //   Context.Session.GetString("carrito");
+
+                        @if (Context.Session.GetString("carrito") != null)
+                        {
+                            double totalPedidos = 0;
+                            Carros carro = JsonConvert.DeserializeObject<Carros>(Context.Session.GetString("carrito"));
+
+
+                            @foreach (var pedido in carro.Pedidos)
+                            {
+                                var ped = (Pedidos)pedido;
+                                totalPedidos += pedido.PrecioTotal;
+
+                    <div id="carritoItem" class="row" height="40px" margin="0 auto" padding="0">
+                        <div id="carritoItemNombre" class="carritoItemComp col-md-4">@ped.ProductoPOJO.nombre</div>
+                        <div id="carritoItemImagen" class="carritoItemComp col-md-2">
+                            <img src="~/images/productos/@ped.ProductoPOJO.imgSmall" height="auto" width="30px" alt="PRODUCTO">
+                        </div>
+                        <div id="carritoItemPrecio" class="carritoItemComp col-md-2">@ped.ProductoPOJO.precio</div>
+
+                        <div id="carritoCompUnidades" class="carritoItemComp col-md-1"> @ped.Unidades</div>
+
+                        <div id="carritoItemPrecioTotal" class="carritoItemComp col-md-2"> @ped.PrecioTotal</div>
+                        @*<form asp-controller="Pedido" asp-action="RemoveProducto" method="post">
+            <input name="sku" type="hidden" value=@ped.ProductoPOJO.sku />
+            <input type="submit" value="X" />
+
+        </form>*@
+                        @Html.ActionLink("X", "RemoveProducto", "Pedido",new { sku = ped.ProductoPOJO.sku }, new { id = "myLink" });
+
+                        @*<a asp-controller="Pedido" asp-action="RemoveProducto" asp-route-sku="@ped.ProductoPOJO.sku" id="myLink" class="dropdown-item">X</a>*@
+                    </div>
+
+
+                            }
+                            <hr />
+
+                            <span id="spanTotal"> TOTAL: @totalPedidos </span>
+                        }
+
+                    }
+
+                    @if (Context.Session.GetString("carrito") != null)
+                    {
+                        <span id="spanBotonComprar">
+                            <input class="btn btn-primary btn-primary-form botonComprar" type="button" value="COMPRAR" onclick="location.href='@Url.Action("SegundoRegistroUsuario", "Cliente")'" />
+                            @*<input type="button" value="COMPRAR" onclick="location.href='@Url.Action("ComprarCarro", "Pedido")'" />*@
+                        </span>
+                    }
+                    else
+                    {
+                        <p class="spanCarro">Aún no has añadido items a tu carro</p>
+                        <p class="spanCarro"><strong> <i>EMPIEZA A COMPRAR!</i></strong></p>
+                    }
+
+                </div>
+            </li>
+            @*@* BUSCADOR
+                <li class="floatRight">
+                    <form asp-controller="Home" asp-action="VistaProductosFiltro" method="post">
+                        <input name="filtro" type="text" class="stdInputText" id="inputSearch" placeholder="[nombre, marca, categoria..]" />
+                    </form>
+                </li>*@
+
+
+        </ul>
+    </div>
+</nav>
+<div id="inputSearchWrapper">
+    <ul>
+        <li class="floatRight">
+            <form asp-controller="Home" asp-action="VistaProductosFiltro" method="post">
+                <input name="filtro" type="text" class="stdInputText" id="inputSearch" placeholder="[nombre, marca, categoria..]" />
+            </form>
+        </li>
+
+    </ul>
+</div>
+
+
+
+
+

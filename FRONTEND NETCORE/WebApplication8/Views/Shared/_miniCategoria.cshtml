@@ -1,0 +1,9 @@
+﻿@model Categorias
+@if (Model.id.catCod2 == 0)
+{
+    <a asp-controller="Home" asp-action="VistaProductosCat" asp-route-catCod1="@Model.id.catCod1" asp-route-catCod2="@Model.id.catCod2" asp-route-page=1 class="nombreCatPri" id="categoria"><div class="catDiv">@Model.nombre</div></a>
+}
+else
+{
+    <a asp-controller="Home" asp-action="VistaProductosCat" asp-route-catCod1="@Model.id.catCod1" asp-route-catCod2="@Model.id.catCod2" asp-route-page=1  class="nombreCatSec" id="categoria"><div class="catDiv">- @Model.nombre </div></a>
+}

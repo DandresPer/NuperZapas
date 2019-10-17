@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table-filter match-name="Clientes" match-catalog="NuperBD"
+		match-schema="dbo" />
+	<table-filter match-name="Direcciones" match-catalog="NuperBD"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="Pedidos" match-catalog="NuperBD"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="Pedidos_Total" match-catalog="NuperBD"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="Productos" match-catalog="NuperBD"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="Valoraciones" match-catalog="NuperBD"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="Carros" match-catalog="NuperBD"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="Categorias" match-catalog="NuperBD"
+		match-schema="dbo">
+	</table-filter>
+</hibernate-reverse-engineering>

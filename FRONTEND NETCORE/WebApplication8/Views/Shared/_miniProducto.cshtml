@@ -1,0 +1,18 @@
+﻿@{
+    var aVista = new Dictionary<string, string> { { "id", Model.sku.ToString() } };
+    var vista = Model.sku.ToString();
+}
+@model Productos
+<div class="vistaMiniProducto">
+    <div class="image">
+        @*~/images/productos/@Model.imgSmall*@
+        <a asp-action="VistaProducto"
+           asp-controller="Home"
+           asp-route-sku="@Model.sku" title="Producto">
+            <img src="~/images/productos/@Model.imgSmall" height="auto" width="200px" alt="PRODUCTO">
+        </a>
+    </div>
+    <div class="precio">@Model.precio</div>
+    <div class="nombre">@Model.nombre</div>
+    <div class="marca">@Model.marca</div>
+</div>
